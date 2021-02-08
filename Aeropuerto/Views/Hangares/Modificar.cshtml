@@ -1,0 +1,44 @@
+﻿
+@using System.Collections.Generic;
+
+@model Aeropuerto.models.Hangares
+
+@{
+
+    ViewBag.Title = "Modificar";
+
+}
+
+<h2>Modificar</h2>
+
+@if (ViewBag.message == true)
+{
+    <h3>Los Datos no se pudieron actualizar.</h3>
+}
+
+@using (Html.BeginForm("Modificar", "Hangares"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-lg-12" style="padding:10px; border:1px solid black; display:block;">
+
+        <div class="col-lg-12">
+
+            @Html.LabelFor(model => model.Tipo, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+            @Html.EditorFor(model => model.Tipo, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+
+        </div>
+
+        <div class="col-lg-12">
+
+            @Html.LabelFor(model => model.CostoRenta, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+            @Html.EditorFor(model => model.CostoRenta, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+
+        </div>
+
+    </div>
+
+    <input type="submit" value="Guardar Cambios" style="margin:20px;" class="bnt btn-primary" />
+}
+
+@Html.ActionLink("volver", "Mostrar", null, new { @class = "btn btn-primary", style = "margin:20px;" })

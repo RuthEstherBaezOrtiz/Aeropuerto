@@ -1,0 +1,66 @@
+﻿@using System.Collections.Generic;
+
+@model Aeropuerto.models.LineaAerea
+
+@{
+    ViewBag.Title = "Agregar";
+
+    string fecha = Model.Id == 0 ? DateTime.Now.ToString("yyyy-MM-dd") : Model.FechaInicio.ToString("yyyy-MM-dd");
+
+    var ListaEstatus = new List<SelectListItem>()
+{
+        new SelectListItem
+        {
+            Text =  Model.Id == 0 ? "ACTIVO" : Model.Estatus == true ? "ACTIVO" : "INACTIVO",
+            Value = Model.Id == 0 ? "True" :Model.Estatus == true ? "True" : "False"
+        },
+        new SelectListItem
+        {
+            Text =  Model.Id == 0 ? "INACTIVO" : Model.Estatus == false ? "ACTIVO" : "INACTIVO",
+            Value = Model.Id == 0 ? "False" : Model.Estatus == false ? "True" : "False"
+        }
+    };
+
+}
+
+<h2>Agregar</h2>
+
+@if (ViewBag.message == true)
+{
+    <h3>No se pudieron guardar los datos.</h3>
+}
+
+
+@using (Html.BeginForm("Agregando", "LineaAerea"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-lg-12" style="padding:10px; border:1px solid black; display:block;">
+
+        <div class="col-lg-12">
+
+            @Html.LabelFor(model => model.Nombre, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+            @Html.EditorFor(model => model.Nombre, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+
+        </div>
+
+        <div class="col-lg-12">
+
+            @Html.Label("Fecha de Inicio", new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+
+            <input type="date" id="datetime" data-val="true" data-val-date="true" data-val-required="true" name="FechaInicio"
+                   value="@fecha" class="col-lg-2" style="margin-bottom: 10px;" />
+
+        </div>
+
+        <div class="col-lg-12">
+            @Html.LabelFor(model => model.Estatus, new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+            @Html.DropDownList("ListEstatus", ListaEstatus, new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+        </div>
+
+    </div>
+
+    <input type="submit" value="Crear" style="margin:20px;" class="bnt btn-primary" />
+}
+
+@Html.ActionLink("volver", "Mostrar", null, new { @class = "btn btn-primary", style = "margin:20px;" })

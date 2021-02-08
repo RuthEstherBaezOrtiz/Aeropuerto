@@ -1,0 +1,61 @@
+﻿@model List<Aeropuerto.models.Aviones>
+
+
+@{
+    ViewBag.Title = "Mostrar";
+}
+
+<h2>Mostrar</h2>
+
+<hr />
+
+@Html.ActionLink("Crear", "Agregar", "Aviones", new { @class= "btn btn-primary", @style = "color:black;" }) 
+
+<br />
+<br />
+<br />
+
+<table class="table">
+
+    <thead>
+
+        <tr>
+
+            <td>ID</td>
+
+            <td>MODELO</td>
+
+            <td>TAMAÑO</td>
+
+            <td>LINEA</td>
+
+        </tr>
+
+    </thead>
+
+    @foreach (var avione in Model)
+    {
+        <tbody>
+
+            <tr>
+
+                <td>  @avione.Id  </td>
+                <td>  @avione.Modelo  </td>
+                <td>  @avione.Tamano  </td>
+                <td>  @avione.IdLineaNavigation.Nombre  </td>
+
+                <td>
+                       
+                        @Html.ActionLink("Editar", "Modificar", "Aviones", new { id = avione.Id }, new { @class = "btn btn-primary", @style = "color:black;" })
+
+                        @Html.ActionLink("Eliminar", "Eliminar", "Aviones", new { id = avione.Id }, new { @class = "btn btn-primary", @style = "color:black;" })
+
+                </td>
+
+            </tr>
+
+        </tbody>
+    }
+
+
+</table>

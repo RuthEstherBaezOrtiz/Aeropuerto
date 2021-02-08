@@ -1,0 +1,65 @@
+﻿@using System.Collections.Generic;
+
+@model Aeropuerto.models.LineaAerea
+
+@{
+    ViewBag.Title = "Modificar";
+
+    var ListaEstatus = new List<SelectListItem>()
+{
+        new SelectListItem
+        {
+            Text = Model.Estatus == true ? "ACTIVO" : "INACTIVO",
+            Value = Model.Estatus == true ? "True" : "False"
+        },
+        new SelectListItem
+        {
+            Text = Model.Estatus == false ? "ACTIVO" : "INACTIVO",
+            Value = Model.Estatus == false ? "True" : "False"
+        }
+    };
+
+}
+
+
+<h2>Modificar</h2>
+
+
+@if (ViewBag.message == true)
+{
+    <h3>Los Datos no se pudieron actualizar.</h3>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-lg-12" style="padding:10px; border:1px solid black; display:block;">
+
+        <div class="col-lg-12">
+
+            @Html.LabelFor(model => model.Nombre, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+            @Html.EditorFor(model => model.Nombre, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+
+        </div>
+
+        <div class="col-lg-12">
+
+            @Html.Label("Fecha de Inicio", new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+
+            <input type="date" id="datetime" data-val="true" data-val-date="true" data-val-required="true" name="FechaInicio" value="@Model.FechaInicio.ToString("yyyy-MM-dd")" class="col-lg-2" style="margin-bottom: 10px;" />
+
+        </div>
+
+        <div class="col-lg-12">
+            @Html.LabelFor(model => model.Estatus, new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+            @Html.DropDownList("ListEstatus", ListaEstatus, new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+        </div>
+
+    </div>
+
+    <input type="submit" value="Guardar Cambios" style="margin:20px;" class="bnt btn-primary" />
+}
+
+@Html.ActionLink("volver", "Mostrar", null, new { @class = "btn btn-primary", style = "margin:20px;" })

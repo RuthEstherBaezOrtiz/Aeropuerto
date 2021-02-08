@@ -1,0 +1,87 @@
+﻿@using System.Collections.Generic;
+@using Aeropuerto.models;
+
+@model Aviones
+
+@{
+
+    ViewBag.Title = "Agregar";
+
+
+    var ListLineasAereas = new List<SelectListItem>();
+
+    // lista de lineas aereas
+    if (ViewBag.lineasAereas != null)
+    {
+        foreach (LineaAerea lineaAerea in ViewBag.lineasAereas)
+        {
+            ListLineasAereas.Add(
+                new SelectListItem()
+                {
+                    Text = lineaAerea.Nombre,
+                    Value = lineaAerea.Id.ToString()
+                });
+        }
+    }
+
+    // lista de tamaños de avion
+    var ListTamano = new List<SelectListItem>()
+{
+        new SelectListItem()
+        {
+            Text = "Tamaño grande",
+            Value = "Tamaño grande"
+        },
+        new SelectListItem()
+        {
+            Text = "Tamaño medio",
+            Value = "Tamaño medio"
+        },
+        new SelectListItem()
+        {
+            Text = "Tamaño pequeño",
+            Value = "Tamaño pequeño"
+        }
+    };
+
+}
+
+<h2>Agregar</h2>
+
+@if (ViewBag.message == true)
+{
+    <h3>No se pudieron guardar los datos.</h3>
+}
+
+@using (Html.BeginForm("Agregando", "Aviones", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-lg-12" style="padding:10px; border:1px solid black; display:block;">
+
+        <div class="col-lg-12">
+
+            @Html.LabelFor(model => model.Modelo, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+            @Html.EditorFor(model => model.Modelo, new { @class = "col-lg-2", @style = "margin-bottom: 15px;" })
+
+        </div>
+
+        <div class="col-lg-12">
+
+            @Html.Label("Tamaño", new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+            @Html.DropDownList("ListTamaño", ListTamano, new { @class = "col-lg-2 form-control", @style = "margin-bottom: 10px;" })
+        </div>
+
+        <div class="col-lg-12">
+            @Html.Label("Lineas Aereas", new { @class = "col-lg-2", @style = "margin-bottom: 10px;" })
+            @Html.DropDownList("ListLineasAereas", ListLineasAereas, new { @class = "col-lg-2 form-control", @style = "margin-bottom: 10px;" })
+        </div>
+
+    </div>
+
+    <input type="submit" value="Crear" style="margin:20px;" class="bnt btn-primary" />
+}
+
+
+
+@Html.ActionLink("volver", "Mostrar", null, new { @class = "btn btn-primary", style = "margin:20px;" })

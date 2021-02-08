@@ -1,0 +1,57 @@
+﻿@model Aeropuerto.models.Hangares
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+
+@if (ViewBag.message == false)
+{
+    <h3>Seguro que desea eliminar esta Linea Aeresa?</h3>
+}
+else
+{
+    <h3>El registro no se puede eliminar por que esta siendo usando en el registro avines.</h3>
+}
+
+
+<div>
+
+    @Html.AntiForgeryToken()
+
+    <div class="dl-horizontal"
+
+        <div>
+            @Html.DisplayNameFor(model => model.Tipo)
+            @Html.DisplayFor(model => model.Tipo)
+        </div>
+
+        <div>
+            @Html.DisplayNameFor(model => model.CostoRenta)
+            @Html.DisplayFor(model => model.CostoRenta)
+        </div>
+
+    </div>
+
+    <hr />
+    <br />
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+
+            @Html.ActionLink("volver", "Mostrar", null, new { @class = "btn btn-primary" })
+
+        </div>
+    }
+
+</div>
+
+
