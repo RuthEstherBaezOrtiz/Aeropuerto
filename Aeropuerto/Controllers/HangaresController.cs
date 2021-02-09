@@ -29,6 +29,25 @@ namespace Aeropuerto.Controllers
             try
             {
                 if (context.SaveChanges() == -1)
+                    return HttpNotFound(); 
+            }
+            catch
+            {
+                return RedirectToAction("Agregar", new { message = true });
+            }
+
+            return RedirectToAction("Mostrar");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Agregando2(Hangares hangares)
+        {
+            context.Hangares.Add(hangares);
+
+            try
+            {
+                if (context.SaveChanges() == -1)
                     return HttpNotFound();
             }
             catch
