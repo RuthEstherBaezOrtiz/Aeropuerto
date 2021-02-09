@@ -8,5 +8,21 @@ namespace Aeropuerto.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Agregando2()
+        {
+            try
+            {
+                    return HttpNotFound();
+            }
+            catch
+            {
+                return RedirectToAction("Agregar", new { message = true });
+            }
+
+            return RedirectToAction("Mostrar");
+        }
     }
 }

@@ -59,6 +59,24 @@ namespace Aeropuerto.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Agregando3(Hangares hangares)
+        {
+            context.Hangares.Add(hangares);
+
+            try
+            {
+                if (context.SaveChanges() == -1)
+                    return HttpNotFound();
+            }
+            catch
+            {
+                return RedirectToAction("Agregar", new { message = true });
+            }
+
+            return RedirectToAction("Mostrar");
+        }
 
         // Aciones de editar
         public ActionResult Modificar(int? id, bool message = false)
